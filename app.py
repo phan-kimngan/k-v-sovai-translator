@@ -49,7 +49,7 @@ st.markdown("""
     h2 {
         margin-top: 4px !important;
         margin-bottom: 10px !important;
-        font-size: 24px !important;
+        font-size: 30px !important;
     }
 
     /* label Vietnamese / Korean */
