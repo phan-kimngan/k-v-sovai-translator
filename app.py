@@ -70,7 +70,7 @@ st.markdown(
     <style>
     .swap-container {
         position: relative;
-        height: 200px;
+        height: 100px;
         display: flex;
         align-items: center;
         justify-content: center;
