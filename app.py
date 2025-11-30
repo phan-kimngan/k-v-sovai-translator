@@ -2,9 +2,6 @@ import streamlit as st
 from gtts import gTTS
 import pandas as pd
 from datetime import datetime
-import whisper
-import tempfile
-import os
 
 #from predict import translate_kor_to_vie
 #from predict_2 import translate_vie_to_kor
@@ -32,10 +29,7 @@ def record_and_transcribe(language="vi"):
     except sr.RequestError:
         st.error("❗Không kết nối được dịch vụ nhận dạng")
         return ""
-def transcribe_korean_audio(file_path):
-    model = whisper.load_model("base")  # You can try 'small', 'medium', or 'large' for better results
-    result = model.transcribe(file_path, language="ko")  # 'ko' specifies Korean
-    return result["text"]       
+        
 # ==============================
 # 1. PAGE CONFIG
 # ==============================
@@ -243,11 +237,6 @@ else:
 # ==============================
 # 8. LEFT PANEL
 # ==============================
-if "uploaded_file" not in st.session_state:
-    st.session_state.uploaded_file = None
-if "file_changed" not in st.session_state:
-    st.session_state.file_changed = False
-    
 with col1:
     st.markdown(f"<div style='color: #000000;font-size:25px; font-weight:600;'>{left_label}</div>", unsafe_allow_html=True)
 
@@ -264,44 +253,25 @@ with col1:
         value=default_text
     )
 
-    colA, colB = st.columns([1, 1])
-    with colA:
-        if st.button("🔊", key="speak_input"):
-            if input_text.strip():
-                tts = gTTS(input_text, lang=src_tts_lang)
-                tts.save("input_tts.mp3")
-                st.audio("input_tts.mp3")
+    #colA, colB = st.columns([1, 1])
+    #with colA:
+    #    if st.button("🔊", key="speak_input"):
+    #        if input_text.strip():
+    #            tts = gTTS(input_text, lang=src_tts_lang)
+    #            tts.save("input_tts.mp3")
+    #            st.audio("input_tts.mp3")
 
-    with colB:
-        if st.button("🎤", key="voice_input"):
-            #text = record_and_transcribe(language=src_tts_lang)
-            #    if st.button("Go to Recorder"):
-            st.switch_page("Recording_Audio.py")
-            with open("recorded_audio.wav", "rb") as f:
-                st.session_state.uploaded_file = f.read()
-                st.audio(st.session_state.uploaded_file)
-                st.session_state.file_changed = True 
-                
-                
-if st.session_state.uploaded_file and st.session_state.file_changed:
-    with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
-        tmp_file.write(st.session_state.uploaded_file)
-        tmp_path = tmp_file.name
-
-    st.session_state["temp_voice_text"] = transcribe_korean_audio(tmp_path)
-    os.remove(tmp_path)                
-    #st.session_state.file_changed = True
-    #text = transcribe_korean_audio(f)
-    #st.session_state["temp_voice_text"] = transcribe_korean_audio(text)
-    #st.rerun()
-            
-            
-    #if st.button("🔊", key="speak_input"):
-    #    if input_text.strip():
-    #        tts = gTTS(input_text, lang=src_tts_lang)
-    #        tts.save("input_tts.mp3")
-    #        with open("input_tts.mp3", "rb") as f:
-    #            st.audio(f.read(), format="audio/mp3")
+    #with colB:
+    #    if st.button("🎤", key="voice_input"):
+    #        text = record_and_transcribe(language=src_tts_lang)
+    #        st.session_state["temp_voice_text"] = text
+    #        st.rerun()
+    if st.button("🔊", key="speak_input"):
+        if input_text.strip():
+            tts = gTTS(input_text, lang=src_tts_lang)
+            tts.save("input_tts.mp3")
+            with open("input_tts.mp3", "rb") as f:
+                st.audio(f.read(), format="audio/mp3")
 # ==============================
 # 9. RIGHT PANEL
 # ==============================
