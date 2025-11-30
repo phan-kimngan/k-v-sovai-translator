@@ -2,6 +2,7 @@ import streamlit as st
 from gtts import gTTS
 import pandas as pd
 from datetime import datetime
+import whisper
 
 #from predict import translate_kor_to_vie
 #from predict_2 import translate_vie_to_kor
