@@ -16,6 +16,22 @@ st.set_page_config(
     page_icon="🇰🇷🇻🇳",
     layout="wide"
 )
+st.markdown("""
+<style>
+@media (max-width: 600px) {
+    .stColumns {
+        display: flex !important;
+        flex-direction: row !important;
+        flex-wrap: nowrap !important;
+    }
+    .stColumn {
+        flex: 1 !important;
+        max-width: 50% !important;
+        min-width: 50% !important;
+    }
+}
+</style>
+""", unsafe_allow_html=True)
 
 # ==============================
 # CSS FIX — GIỮ 2 CỘT NGANG TRÊN MOBILE
