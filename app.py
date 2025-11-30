@@ -447,21 +447,29 @@ if st.button("🌐 Translate", use_container_width=True):
 # ==============================
 # 12. HISTORY VIEW
 # ==============================
-st.markdown("<div style='color: #000000; font-size:25px; font-weight:600; margin-top:10px; margin-bottom:20px'>🕘 History</div>", unsafe_allow_html=True)
+#st.markdown("<div style='color: #000000; font-size:25px; font-weight:600; margin-top:10px; margin-bottom:20px'>🕘 History</div>", unsafe_allow_html=True)
 
+# ==============================
+# 12. HISTORY VIEW
+# ==============================
+st.markdown("<div style='color: #000000; font-size:25px; font-weight:600; margin-top:10px;'>🕘 History</div>", unsafe_allow_html=True)
+
+# 2 nút nằm cùng một hàng
 colH1, colH2 = st.columns([1, 1])
 
 with colH1:
+    st.markdown("<div style='display:flex; justify-content:flex-start;'>", unsafe_allow_html=True)
     if st.button("🧹 Clear all history"):
         st.session_state.history = []
         st.rerun()
+    st.markdown("</div>", unsafe_allow_html=True)
 
 with colH2:
+    st.markdown("<div style='display:flex; justify-content:flex-end;'>", unsafe_allow_html=True)
     if st.button("💾 Export to CSV"):
         if st.session_state.history:
             df = pd.DataFrame(st.session_state.history)
             df.to_csv("translation_history.csv", index=False)
-
             with open("translation_history.csv", "rb") as f:
                 st.download_button(
                     label="⬇️ Download CSV file",
@@ -470,7 +478,9 @@ with colH2:
                     mime="text/csv"
                 )
         else:
-            st.warning("⚠️ Không có dữ liệu để export")
+            st.warning("⚠️ No data to export")
+    st.markdown("</div>", unsafe_allow_html=True)
+
 
 # SHOW HISTORY LIST
 for item in reversed(st.session_state.history):
