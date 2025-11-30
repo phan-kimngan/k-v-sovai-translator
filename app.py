@@ -454,42 +454,41 @@ if st.button("🌐 Translate", use_container_width=True):
 # ==============================
 # 12. HISTORY VIEW
 # ==============================
-st.markdown("<div style='color: #000000; font-size:25px; font-weight:600; margin-top:10px;'>🕘 History</div>", unsafe_allow_html=True)
+# 12. HISTORY VIEW
+# ==============================
+st.markdown("<div style='color: #000000; font-size:25px; font-weight:600; margin-top:15px;'>🕘 History</div>", unsafe_allow_html=True)
 
+# CSS chuẩn — Clear (trái) & Export (phải)
 st.markdown("""
 <style>
-.hist-btn-box {
+.hist-btn-row {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
-    align-items: center;
+    gap: 10px;
     width: 100%;
 }
 
-/* nút bấm */
-.hist-btn-box button {
-    width: 100%;
-    padding: 10px;
+.hist-btn-row > div {
+    flex: 1;
 }
 
-/* mobile tối ưu */
+/* padding mobile */
 @media (max-width: 600px) {
-    .hist-btn-box {
-        display: flex;
-        flex-direction: row !important;
-        width: 100%;
-        gap: 8px !important;
+    .hist-btn-row {
+        gap: 6px !important;
     }
-    .hist-btn-box button {
-        flex: 1;
+    .stButton > button {
         font-size: 14px !important;
+        padding: 8px !important;
     }
 }
 </style>
 """, unsafe_allow_html=True)
 
-st.markdown("<div class='hist-btn-box'>", unsafe_allow_html=True)
+st.markdown("<div class='hist-btn-row'>", unsafe_allow_html=True)
 
-colH1, colH2 = st.columns([1, 1])
+colH1, colH2 = st.columns([1,1])
 
 with colH1:
     if st.button("🧹 Clear all history", use_container_width=True):
@@ -501,6 +500,7 @@ with colH2:
         if st.session_state.history:
             df = pd.DataFrame(st.session_state.history)
             df.to_csv("translation_history.csv", index=False)
+
             with open("translation_history.csv", "rb") as f:
                 st.download_button(
                     label="⬇️ Download CSV file",
