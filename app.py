@@ -202,8 +202,8 @@ st.markdown(
 # ==============================
 # 5. LAYOUT
 # ==============================
-#col1, col_center, col2 = st.columns([2, 0.5, 2])
-col1, col2 = st.columns(2)
+col1, col_center, col2 = st.columns([1, 0.25, 1])
+#col1, col2 = st.columns(2)
 
 # ==============================
 # 6. SWAP
