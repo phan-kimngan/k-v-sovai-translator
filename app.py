@@ -71,7 +71,12 @@ st.markdown("""
         margin-top: 4px !important;
         margin-bottom: 4px !important;
     }
-
+    /* khối chứa nút swap */
+    .swap-container {
+        display: flex !important;
+        align-items: center;
+        justify-content: center;
+    }
     /* nút bấm nhỏ gọn hơn */
     .stButton > button {
         padding: 6px 12px !important;
@@ -86,44 +91,6 @@ st.markdown("""
 }
 </style>
 """, unsafe_allow_html=True)
-st.markdown("""
-<style>
-@media (max-width: 600px) {
-
-    /* Giữ 2 ô song song */
-    div[data-testid="stHorizontalBlock"] {
-        display: flex !important;
-        flex-direction: row !important;
-        width: 100% !important;
-    }
-    div[data-testid="column"] {
-        display: inline-block !important;
-        width: 49% !important;
-        vertical-align: top;
-    }
-
-    /* khối chứa nút swap */
-    .swap-container {
-        display: flex !important;
-        align-items: center;
-        justify-content: center;
-        height: 200px !important;
-        width: 100% !important;
-    }
-
-    /* Nút swap dọc lên xuống */
-    .swap-container button {
-        transform: rotate(90deg);
-        width: 50px !important;
-        height: 50px !important;
-        font-size: 24px !important;
-        border-radius: 50% !important;
-    }
-
-}
-</style>
-""", unsafe_allow_html=True)
-
 
 # ==============================
 # 2. SESSION STATE
