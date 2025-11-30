@@ -276,7 +276,7 @@ with col1:
         if st.button("🎤", key="voice_input"):
             #text = record_and_transcribe(language=src_tts_lang)
             #    if st.button("Go to Recorder"):
-            st.switch_page("pages/Recording_Audio.py")
+            st.switch_page("Recording_Audio.py")
             with open("recorded_audio.wav", "rb") as f:
                 st.session_state.uploaded_file = f.read()
                 st.audio(st.session_state.uploaded_file)
