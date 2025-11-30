@@ -19,6 +19,29 @@ st.set_page_config(
     page_icon="🇰🇷🇻🇳",
     layout="centered"
 )
+st.markdown("""
+<style>
+@media (max-width: 600px) {
+    .css-ocqkz7 {
+        flex-direction: row !important;
+    }
+    .stColumn {
+        width: 50% !important;
+        min-width: 50% !important;
+    }
+    .block-container {
+        width: 100vw !important;
+    }
+}
+</style>
+""", unsafe_allow_html=True)
+st.markdown("""
+<style>
+textarea {
+    font-size: 16px !important;
+}
+</style>
+""", unsafe_allow_html=True)
 
 # ==============================
 # 2. SESSION STATE
@@ -179,7 +202,8 @@ st.markdown(
 # ==============================
 # 5. LAYOUT
 # ==============================
-col1, col_center, col2 = st.columns([2, 0.5, 2])
+#col1, col_center, col2 = st.columns([2, 0.5, 2])
+col1, col2 = st.columns(2)
 
 # ==============================
 # 6. SWAP
