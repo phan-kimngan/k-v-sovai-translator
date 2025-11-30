@@ -64,13 +64,13 @@ if "history" not in st.session_state:
 
 
 
-
+# khaong cach 2 box trong mobile
 st.markdown(
     """
     <style>
     .swap-container {
         position: relative;
-        height: 100px;
+        height: 50px;
         display: flex;
         align-items: center;
         justify-content: center;
