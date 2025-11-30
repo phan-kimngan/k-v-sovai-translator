@@ -54,9 +54,9 @@ st.markdown("""
 
     /* label Vietnamese / Korean */
     div[style*="font-size:25px; font-weight:600;"] {
-        font-size: 20px !important;
+        font-size: 16px !important;
         margin-top: 4px !important;
-        margin-bottom: 4px !important;
+        margin-bottom: 2px !important;
     }
 
     /* textarea thấp hơn để đỡ chiếm chiều cao màn hình */
