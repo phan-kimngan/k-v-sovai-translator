@@ -61,8 +61,8 @@ st.markdown("""
     /* nút swap */
     .swap-container button {
         font-size: 28px !important;
-        width: 56px !important;
-        height: 56px !important;
+        width: 60px !important;
+        height: 60px !important;
         border-radius: 50% !important;
         display: flex !important;
         justify-content: center !important;
@@ -96,7 +96,7 @@ st.markdown("""
 
     /* Kéo title lên cao hơn */
     div[style*='K-V SovAI Translator'] {
-        margin-top: -20px !important;
+        margin-top: -10px !important;
     }
 
     /* Căn giữa nút icon 🔊 và ↔️ */
