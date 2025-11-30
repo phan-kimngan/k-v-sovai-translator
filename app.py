@@ -291,7 +291,7 @@ col1, col_center, col2 = st.columns([1, 0.25, 1])
 # ==============================
 with col_center:
     st.markdown("<div class='swap-container'>", unsafe_allow_html=True)
-    st.markdown(f"<div style='align-items: center !important'>{left_label}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div style='align-items: center !important'>", unsafe_allow_html=True)
     swap_clicked = st.button("⬆️⬇️", key="swap_button")
     st.markdown("</div>", unsafe_allow_html=True)
 
