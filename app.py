@@ -60,7 +60,7 @@ st.markdown("""
 
     /* thu gọn khoảng cách vùng swap */
     .swap-container {
-        height: 32px !important;
+        height: 10px !important;
         margin-top: 1px !important;
         margin-bottom: 1px !important;
     }
