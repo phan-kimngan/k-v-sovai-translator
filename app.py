@@ -53,7 +53,7 @@ st.markdown("""
     }
 
     /* label Vietnamese / Korean */
-    div[style*="font-size:25px; font-weight:600;"] {
+    div[style*="font-size:12px; font-weight:600;"] {
         font-size: 12px !important;
         margin-top: 1px !important;
         margin-bottom: 1px !important;
