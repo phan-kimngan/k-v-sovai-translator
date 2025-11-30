@@ -19,46 +19,72 @@ st.set_page_config(
     page_icon="🇰🇷🇻🇳",
     layout="centered"
 )
+
+# 💡 CSS MOBILE: giữ 2 cột, tối ưu khoảng trắng
 st.markdown("""
 <style>
 @media (max-width: 600px) {
-    div[data-testid="column"] {
-        display: inline-block !important;
-        width: 49% !important;
-        vertical-align: top;
-    }
+    /* giữ 2 cột song song nếu có thể */
     div[data-testid="stHorizontalBlock"] {
         display: flex !important;
         flex-direction: row !important;
         width: 100% !important;
     }
+    div[data-testid="column"] {
+        display: inline-block !important;
+        width: 49% !important;
+        vertical-align: top;
+    }
+
+    /* thu gọn padding của container chính */
+    .block-container {
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+        padding-top: 8px !important;
+        padding-bottom: 20px !important;
+    }
+
+    /* header gọn hơn một chút */
+    h2 {
+        margin-top: 4px !important;
+        margin-bottom: 10px !important;
+        font-size: 24px !important;
+    }
+
+    /* label Vietnamese / Korean */
+    div[style*="font-size:25px; font-weight:600;"] {
+        font-size: 20px !important;
+        margin-top: 4px !important;
+        margin-bottom: 4px !important;
+    }
+
+    /* textarea thấp hơn để đỡ chiếm chiều cao màn hình */
+    textarea {
+        height: 150px !important;
+        font-size: 16px !important;
+    }
+
+    /* thu gọn khoảng cách vùng swap ↔️ */
+    .swap-container {
+        height: 32px !important;
+        margin-top: 4px !important;
+        margin-bottom: 4px !important;
+    }
+
+    /* nút bấm nhỏ gọn hơn */
+    .stButton > button {
+        padding: 6px 12px !important;
+        font-size: 14px !important;
+    }
+
+    /* history box gọn lại */
+    .history-box {
+        margin-bottom: 4px !important;
+        padding: 6px !important;
+    }
 }
 </style>
 """, unsafe_allow_html=True)
-
-# st.markdown("""
-# <style>
-# @media (max-width: 600px) {
-#     .css-ocqkz7 {
-#         flex-direction: row !important;
-#     }
-#     .stColumn {
-#         width: 50% !important;
-#         min-width: 50% !important;
-#     }
-#     .block-container {
-#         width: 100vw !important;
-#     }
-# }
-# </style>
-# """, unsafe_allow_html=True)
-# st.markdown("""
-# <style>
-# textarea {
-#     font-size: 16px !important;
-# }
-# </style>
-# """, unsafe_allow_html=True)
 
 # ==============================
 # 2. SESSION STATE
@@ -78,53 +104,8 @@ if "history" not in st.session_state:
 # ==============================
 # 3. CSS
 # ==============================
-st.markdown("""
-<style>
-/* MOBILE SPACING IMPROVEMENT */
-@media (max-width: 600px) {
 
-    /* thu nhỏ padding container */
-    .block-container {
-        padding-left: 8px !important;
-        padding-right: 8px !important;
-    }
-
-    /* giảm khoảng cách giữa 2 box text */
-    textarea {
-        height: 160px !important; 
-        font-size: 16px !important;
-    }
-
-    /* giảm margin history box */
-    .history-box {
-        margin-bottom: 4px !important;
-        padding: 6px !important;
-    }
-
-    /* thu gọn chiều cao nút Translate */
-    .stButton > button {
-        padding: 8px 12px !important;
-        font-size: 14px !important;
-    }
-
-    /* giảm khoảng cách phía trên & dưới label Vietnamese / Korean */
-    div[style*='font-size:25px'] {
-        font-size: 19px !important;
-        margin-bottom: 4px !important;
-        margin-top: 4px !important;
-    }
-
-    /* giảm chiều cao swap arrow button */
-    .swap-container {
-        height: 40px !important;
-    }
-}
-</style>
-""", unsafe_allow_html=True)
-
-
-
-# khaong cach 2 box trong mobile
+# khoảng cách 2 box trong mobile
 st.markdown(
     """
     <style>
@@ -318,25 +299,13 @@ with col1:
         value=default_text
     )
 
-    #colA, colB = st.columns([1, 1])
-    #with colA:
-    #    if st.button("🔊", key="speak_input"):
-    #        if input_text.strip():
-    #            tts = gTTS(input_text, lang=src_tts_lang)
-    #            tts.save("input_tts.mp3")
-    #            st.audio("input_tts.mp3")
-
-    #with colB:
-    #    if st.button("🎤", key="voice_input"):
-    #        text = record_and_transcribe(language=src_tts_lang)
-    #        st.session_state["temp_voice_text"] = text
-    #        st.rerun()
     if st.button("🔊", key="speak_input"):
         if input_text.strip():
             tts = gTTS(input_text, lang=src_tts_lang)
             tts.save("input_tts.mp3")
             with open("input_tts.mp3", "rb") as f:
                 st.audio(f.read(), format="audio/mp3")
+
 # ==============================
 # 9. RIGHT PANEL
 # ==============================
@@ -376,9 +345,6 @@ if st.button("🌐 Translate", use_container_width=True):
             })
 
         st.rerun()
-
-# ==============================
-
 
 # ==============================
 # 12. HISTORY VIEW
