@@ -330,9 +330,6 @@ div[data-baseweb="textarea"] {
     margin-bottom: 0px !important;
 }
 
-div.row-widget.stButton {
-    margin-top: -14px !important;
-}
 </style>
 """, unsafe_allow_html=True)
 # 4. HEADER
