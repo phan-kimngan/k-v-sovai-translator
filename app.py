@@ -448,7 +448,7 @@ function stopRecording() {
         const blob = new Blob(chunks, { type: 'audio/webm' });
         
         let formData = new FormData();
-        formData.append("file", blob, "temp.mp3");
+        formData.append("file", blob, "voice.webm");
 
         let r = await fetch("https://tenacious-von-occludent.ngrok-free.dev/voice2text", {
             method: "POST",
