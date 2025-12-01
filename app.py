@@ -345,7 +345,7 @@ st.markdown("""
 <style>
 @media (max-width: 600px) {
     .swap-container {
-        transform: translateY(-30px) !important;
+        transform: translateY(-80px) !important;
     }
 }
 </style>
