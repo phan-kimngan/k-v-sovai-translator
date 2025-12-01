@@ -391,7 +391,7 @@ with col1:
     label_visibility="collapsed"
     )
 
-    components.html(
+    value = components.html(
 """
 <button id="holdToTalk"
     style="
@@ -475,7 +475,12 @@ async function stopRecording(e) {
         statusBox.innerHTML = "✔ OK: " + res.text;
 
         window.parent.postMessage(
-    { isStreamlitMessage: true, type: "streamlit:setComponentValue", value: res.text },
+    {
+        isStreamlitMessage: true,
+        type: "streamlit:componentValue",
+        id: "voiceInput",
+        data: res.text
+    },
     "*"
 );
 
@@ -640,9 +645,10 @@ for item in reversed(st.session_state.history):
         unsafe_allow_html=True
     )
 
-if "_component_value" in st.session_state and st.session_state._component_value:
-    st.session_state.input_text = st.session_state._component_value
-    st.session_state._component_value = None
+
+
+if value is not None and len(value) > 0:
+    st.session_state.input_text = value
     st.rerun()
 # 11. FOOTER
 # ==============================
