@@ -469,6 +469,7 @@ async function stopRecording(e) {
                 method: "POST",
                 body: formData,
                 mode: "cors"
+                headers: {"ngrok-skip-browser-warning": "1"  }
             });
 
             console.log("HTTP STATUS:", r.status);
