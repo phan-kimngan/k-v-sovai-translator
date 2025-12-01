@@ -395,7 +395,7 @@ with col1:
     left_col1, left_col2 = st.columns([5, 1])
 
     with left_col1:
-            components.html(
+        components.html(
 """
 <style>
 #holdToTalk {
