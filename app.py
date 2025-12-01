@@ -390,13 +390,7 @@ with col1:
         key="input_text",
         label_visibility="collapsed"
     )
-    st.markdown("<div class='audio-row'>", unsafe_allow_html=True)
-    if st.button("🔊", key="speak_input"):
-        if input_text.strip():
-            tts = gTTS(input_text, lang=src_tts_lang)
-            tts.save("input_tts.mp3")
-            with open("input_tts.mp3", "rb") as f:
-                st.audio(f.read(), format="audio/mp3")  
+
 
     # NÚT RECORD + STATUS + JS
     components.html(
@@ -532,7 +526,13 @@ window.addEventListener('message', (event) => {
         st.session_state.input_text = qp["recorded"][0]
         st.experimental_set_query_params()  # clear param
         st.experimental_rerun()
-
+    st.markdown("<div class='audio-row'>", unsafe_allow_html=True)
+    if st.button("🔊", key="speak_input"):
+        if input_text.strip():
+            tts = gTTS(input_text, lang=src_tts_lang)
+            tts.save("input_tts.mp3")
+            with open("input_tts.mp3", "rb") as f:
+                st.audio(f.read(), format="audio/mp3")  
 
 
 
