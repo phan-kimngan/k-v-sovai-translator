@@ -322,8 +322,8 @@ with col1:
     display:flex;
     flex-direction:row;
     gap:4px !important;
-    margin-top:-10px !important;
-    margin-bottom:-10px !important;
+    margin-top:-30px !important;
+    margin-bottom:-30px !important;
 }
 </style>
 """, unsafe_allow_html=True)
