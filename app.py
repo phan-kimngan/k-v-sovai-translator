@@ -324,33 +324,7 @@ st.markdown("""
 
 </style>
 """, unsafe_allow_html=True)
-st.markdown("""
-<style>
-@media (max-width: 600px) {
 
-    /* căn 2 nút audio nằm ngang */
-    .audio-inline {
-        display: flex !important;
-        flex-direction: row !important;
-        align-items: center !important;
-        gap: 0px !important;  /* chỉnh khoảng cách giữa 🔊 và 🎤 */
-        margin-top: 6px !important;
-        margin-bottom: -6px !important;
-    }
-
-}
-</style>
-""", unsafe_allow_html=True)
-st.markdown("""
-<style>
-@media (max-width: 600px) {
-    .swap-container {
-        transform: translateY(-35px) !important;   /* đưa lên vừa đủ */
-        margin-bottom: -10px !important;
-    }
-}
-</style>
-""", unsafe_allow_html=True)
 
 # 4. HEADER
 # ==============================
@@ -407,11 +381,8 @@ else:
 # ==============================
 # 8. LEFT PANEL
 # ==============================
-# ==============================
-# 8. LEFT PANEL  (ĐÃ SỬA)
-# ==============================
 with col1:
-    st.markdown(f"<div style='color: #000000;font-size:20px; font-weight:600;margin-bottom:30px;'>{left_label}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div style='color: #000000;font-size:20px; font-weight:600;'>{left_label}</div>", unsafe_allow_html=True)
 
     input_text = st.text_area(
         " ",
@@ -420,125 +391,149 @@ with col1:
         key="input_text",
         label_visibility="collapsed"
     )
-
-    # 🌟 Hiển thị 2 nút sát nhau (STREAMLIT button)
-    st.markdown("<div class='audio-inline'>", unsafe_allow_html=True)
-
-    btn_speaker = st.button("🔊", key="speak_input_UI")
-
-    btn_mic = st.button("🎤", key="mic_press_UI")
-
-    st.markdown("</div>", unsafe_allow_html=True)
-
-    # 🔊 TTS hoạt động như cũ
-    if btn_speaker:
+    
+    if st.button("🔊", key="speak_input"):
         if input_text.strip():
             tts = gTTS(input_text, lang=src_tts_lang)
             tts.save("input_tts.mp3")
             with open("input_tts.mp3", "rb") as f:
                 st.audio(f.read(), format="audio/mp3")  
 
-    # 🎤 gọi mic thật khi bấm UI
-    if btn_mic:
-        st.components.v1.html("""
-            <script>
-            document.getElementById("holdToTalk").dispatchEvent(new Event('mousedown'));
-            setTimeout(()=>document.getElementById("holdToTalk").dispatchEvent(new Event('mouseup')), 1500);
-            </script>
-        """, height=0)
-
-    # ↙ Mic HTML — ẨN — nhưng vẫn hoạt động
+    # NÚT RECORD + STATUS + JS
     components.html(
-    """
-    <style>
-        #holdToTalk { display:none; }  /* ẨN NÚT HTML MIC */
-    </style>
+"""
+<style>
+#holdToTalk {
+    width: 48px;
+    height: 48px;
+    font-size: 22px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.58);
+    color: #1E1E1E;
+    border: 1px solid rgba(255,255,255,0.8);
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    cursor:pointer;
+    transition: 0.12s;
+}
 
-    <button id="holdToTalk">🎤</button>
-    <p id="status" style="display:none;"></p>
+#holdToTalk:hover {
+    background: rgba(255,255,255,0.82);
+    transform: scale(1.07);
+}
 
-    <script>
-    let mediaRecorder;
-    let chunks = [];
-    let recording = false;
+/* khi đang ghi âm */
+#holdToTalk.recording {
+    background: rgba(255,80,80,0.9);
+    color:white;
+    border:1px solid rgba(255,255,255,1);
+    animation: pulse 1s infinite;
+}
 
-    btn = document.getElementById("holdToTalk");
+@keyframes pulse {
+  0% { box-shadow: 0 0 4px rgba(255,80,80,0.3); }
+  50% { box-shadow: 0 0 12px rgba(255,20,20,1); }
+ 100% { box-shadow: 0 0 4px rgba(255,80,80,0.3); }
+}
+</style>
 
-    function startRecording() {
-        if (recording) return;
-        recording = true;
-        chunks = [];
-        
-        btn.classList.add("recording");
-        statusBox.innerHTML = "🎙️";
-        statusBox.style.color = "#ff3b3b";
-    
-        navigator.mediaDevices.getUserMedia({ audio: true })
-        .then(stream => {
-            mediaRecorder = new MediaRecorder(stream);
-            mediaRecorder.ondataavailable = e => chunks.push(e.data);
-            mediaRecorder.start();
+<button id="holdToTalk">🎤</button>
+<p id="status" style="font-size:10px;color:#444;margin-top:4px;"></p>
+
+<script>
+let mediaRecorder;
+let chunks = [];
+let recording = false;
+let startTime = 0;
+btn = document.getElementById("holdToTalk");
+statusBox = document.getElementById("status");
+
+btn.addEventListener("mousedown", startRecording);
+btn.addEventListener("mouseup", stopRecording);
+btn.addEventListener("touchstart", startRecording);
+btn.addEventListener("touchend", stopRecording);
+
+function startRecording(e) {
+    if (recording) return;
+    recording = true;
+    chunks = [];
+    startTime = Date.now();
+
+    btn.classList.add("recording");
+    statusBox.innerHTML = "🎙️";
+    statusBox.style.color = "#ff3b3b";
+
+    navigator.mediaDevices.getUserMedia({ audio: true })
+    .then(stream => {
+        mediaRecorder = new MediaRecorder(stream);
+        mediaRecorder.ondataavailable = e => chunks.push(e.data);
+        mediaRecorder.start();
+    });
+}
+
+async function stopRecording(e) {
+    if (!recording) return;
+    recording = false;
+
+    btn.classList.remove("recording");
+    statusBox.innerHTML = "⏳";
+    statusBox.style.color = "#ffaa00";
+    mediaRecorder.stop();
+
+    mediaRecorder.onstop = async () => {
+        const blob = new Blob(chunks, { type: 'audio/webm' });
+        let formData = new FormData();
+        formData.append("file", blob, "voice.webm");
+
+        let r = await fetch("https://tenacious-von-occludent.ngrok-free.dev/voice2text", {
+            method: "POST",
+            body: formData,
+            mode: "cors",
+            headers: {"ngrok-skip-browser-warning": "1" }
         });
+
+        let raw = await r.text();
+        let res = JSON.parse(raw);
+
+        statusBox.innerHTML = "✔"+ res.text;;
+        statusBox.style.color = "#009f10";
+
+        window.parent.postMessage(
+            { type: "voice-text", text: res.text },
+            "*"
+        );
     }
-
-    function stopRecording() {
-        if (!recording) return;
-        recording = false;
-        mediaRecorder.stop();
-        
-        btn.classList.remove("recording");
-        statusBox.innerHTML = "⏳";
-        statusBox.style.color = "#ffaa00";
-        mediaRecorder.stop();
-    
-        mediaRecorder.onstop = async () => {
-            const blob = new Blob(chunks, { type: 'audio/webm' });
-            let formData = new FormData();
-            formData.append("file", blob, "voice.webm");
-
-            let r = await fetch("https://tenacious-von-occludent.ngrok-free.dev/voice2text", {
-                method: "POST",
-                body: formData,
-                mode: "cors",
-                headers: {"ngrok-skip-browser-warning": "1" }
-            });
-
-            let raw = await r.text();
-            let res = JSON.parse(raw);
-            statusBox.innerHTML = "✔"+ res.text;
-            window.parent.postMessage(
-                { type: "voice-text", text: res.text },
-                "*"
-            );
-        }
-    }
-    </script>
-    """,
-    height=0
-    )
+}
+</script>
+""",
+height=95
+)
 
     st.components.v1.html(
-    """
-    <script>
-    window.addEventListener('message', (event) => {
-        if (event.data.type === 'voice-text') {
-            const text = event.data.text;
+"""
+<script>
+window.addEventListener('message', (event) => {
+    if (event.data.type === 'voice-text') {
+        const text = event.data.text;
 
-            window.parent.postMessage({
-                isStreamlitMessage: true,
-                type: "streamlit:setQueryParams",
-                queryParams: { recorded:[text] }
-            }, "*");
-        }
-    });
-    </script>
-    """, height=0)
-
+        window.parent.postMessage({
+            isStreamlitMessage: true,
+            type: "streamlit:setQueryParams",
+            queryParams: { recorded:[text] }
+        }, "*");
+    }
+});
+</script>
+""", height=0)
     qp = st.experimental_get_query_params()
+
     if "recorded" in qp:
         st.session_state.input_text = qp["recorded"][0]
-        st.experimental_set_query_params()
+        st.experimental_set_query_params()  # clear param
         st.experimental_rerun()
+
 
 
 
@@ -547,7 +542,7 @@ with col1:
 # 9. RIGHT PANEL
 # ==============================
 with col2:
-    st.markdown(f"<div style='color: #000000; font-size:20px; font-weight:600;margin-bottom:10px;'>{right_label}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div style='color: #000000; font-size:20px; font-weight:600;'>{right_label}</div>", unsafe_allow_html=True)
 
     st.text_area(
         " ",
