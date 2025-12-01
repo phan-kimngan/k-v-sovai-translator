@@ -386,10 +386,64 @@ with col1:
 
     input_text = st.text_area(
         "",
-        key="input_text",
+        st.session_state.input_text,
         height=200,
-        value=default_text
+        key=f"input_widget_{st.session_state.update_trigger}"
     )
+
+    st.session_state.input_text = input_text
+
+    st.markdown("""
+    <button id="voiceBtn"
+        style="
+            width:100%; 
+            padding:14px;
+            font-size:18px;
+            border-radius:8px;
+            background:#ff4b4b;
+            color:white;">
+        🎤 Nhấn để nói
+    </button>
+
+    <p id="voiceStatus" style="color:#222; font-size:14px"></p>
+
+    <script>
+    const btn = document.getElementById("voiceBtn");
+    const status = document.getElementById("voiceStatus");
+
+    btn.onclick = () => {
+        var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        var rec = new SpeechRecognition();
+
+        rec.lang = "vi-VN";
+        rec.interimResults = false;
+        rec.maxAlternatives = 1;
+
+        rec.start();
+        status.innerHTML = "🎙️ Đang nghe...";
+
+        rec.onresult = function(event) {
+            const text = event.results[0][0].transcript;
+
+            // gửi text vào streamlit
+            window.parent.postMessage(
+                { isStreamlitMessage: true,
+                  type: "streamlit:setComponentValue",
+                  value: text
+                },
+                "*"
+            );
+
+            status.innerHTML = "✔ Đã ghi âm!";
+        };
+
+        rec.onerror = function(event) {
+            status.innerHTML = "❗ Lỗi: " + event.error;
+        };
+    };
+    </script>
+""", unsafe_allow_html=True)
+
     if st.button("🔊", key="speak_input"):
         if input_text.strip():
             tts = gTTS(input_text, lang=src_tts_lang)
@@ -543,7 +597,10 @@ for item in reversed(st.session_state.history):
         unsafe_allow_html=True
     )
 
-
+if "_component_value" in st.session_state:
+    st.session_state.input_text = st.session_state._component_value
+    st.session_state._component_value = None
+    st.rerun()
 # 11. FOOTER
 # ==============================
 st.markdown("<hr>", unsafe_allow_html=True)
