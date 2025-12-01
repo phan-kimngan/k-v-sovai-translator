@@ -394,7 +394,7 @@ with col1:
         #st.session_state.update_trigger += 1
     input_text = st.text_area(
         "",
-        st.session_state.input_text,
+        value=st.session_state.input_text,
         height=200,
         key="input_text"
     )
