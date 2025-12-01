@@ -423,7 +423,7 @@ with col1:
         key="input_text",
         label_visibility="collapsed"
     )
-     st.markdown("<div class='audio-row'>", unsafe_allow_html=True)
+    st.markdown("<div class='audio-row'>", unsafe_allow_html=True)
     if st.button("🔊", key="speak_input"):
         if input_text.strip():
             tts = gTTS(input_text, lang=src_tts_lang)
