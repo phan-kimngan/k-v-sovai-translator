@@ -318,17 +318,13 @@ else:
 with col1:
     st.markdown(f"<div style='color: #000000;font-size:20px; font-weight:600; margin-bottom:25px'>{left_label}</div>", unsafe_allow_html=True)
 
-    st.markdown("<div class='textbox-wrap'>", unsafe_allow_html=True)
-
-    input_text = st.text_area(
-    " ",
-    st.session_state.input_text,
-    height=200,
-    key="input_text",
-    label_visibility="collapsed"
+    st.text_area(
+        " ",
+        st.session_state.translation,
+        height=200,
+        key="output_box"
     )
 
-    st.markdown("<div id='voiceBox'></div>", unsafe_allow_html=True)
 
     st.markdown("</div>", unsafe_allow_html=True)
     
@@ -351,8 +347,6 @@ with col1:
     right: 12px;
     z-index: 10;
 }
-<div style='display:flex; justify-content:center; align-items:center;'>
-<button id="holdToTalk">🎤</button>
 #holdToTalk {
     width: 38px !important;
     height: 38px !important;
