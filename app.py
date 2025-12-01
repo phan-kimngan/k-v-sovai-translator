@@ -333,7 +333,7 @@ st.markdown("""
         display: flex !important;
         flex-direction: row !important;
         align-items: center !important;
-        gap: 8px !important;  /* chỉnh khoảng cách giữa 🔊 và 🎤 */
+        gap: 0px !important;  /* chỉnh khoảng cách giữa 🔊 và 🎤 */
         margin-top: 6px !important;
         margin-bottom: -6px !important;
     }
