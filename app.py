@@ -187,6 +187,9 @@ if "mode" not in st.session_state:
 if "input_text" not in st.session_state:
     st.session_state.input_text = ""
 
+if "update_trigger" not in st.session_state:
+    st.session_state.update_trigger = 0
+    
 if "translation" not in st.session_state:
     st.session_state.translation = ""
 
