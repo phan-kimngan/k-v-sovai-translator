@@ -490,6 +490,7 @@ async function stopRecording(e) {
 height=230
 )
     # Nếu có dữ liệu mới từ JS component
+    st.write(st.session_state)
     if "voiceInput" in st.session_state and st.session_state.voiceInput:
         st.session_state.input_text = st.session_state.voiceInput
         st.session_state.voiceInput = ""  # reset tránh lặp lại
