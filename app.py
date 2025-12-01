@@ -314,18 +314,6 @@ with col1:
             tts.save("input_tts.mp3")
             with open("input_tts.mp3", "rb") as f:
                 st.audio(f.read(), format="audio/mp3")  
-    # NÚT RECORD + STATUS + JS
-    st.markdown("""
-<style>
-.audio-inline {
-    display:flex;
-    flex-direction:row;
-    gap:4px !important;
-    margin-top:6px !important;
-    margin-bottom:0px !important;
-}
-</style>
-""", unsafe_allow_html=True)
     components.html(
 """
 <style>
@@ -351,6 +339,19 @@ with col1:
     transform: scale(1.07);
 }
 
+#copyVoiceBtn {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.55);
+    border:1px solid rgba(255,255,255,0.8);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    margin-left:10px;
+}
+
 /* khi đang ghi âm */
 #holdToTalk.recording {
     background: rgba(255,80,80,0.9);
@@ -366,21 +367,36 @@ with col1:
 }
 </style>
 
-<button id="holdToTalk">🎤</button>
-<p id="status" style="font-size:15px;color:#444;margin-top:4px;"></p>
+<div style="display:flex; flex-direction:row; align-items:center; gap:8px;">
+    <button id="holdToTalk">🎤</button>
+    <p id="status" style="font-size:15px;color:#444;margin-top:4px;"></p>
+    <button id="copyVoiceBtn">📋</button>
+</div>
 
 <script>
 let mediaRecorder;
 let chunks = [];
 let recording = false;
 let startTime = 0;
+
 btn = document.getElementById("holdToTalk");
 statusBox = document.getElementById("status");
+copyBtn = document.getElementById("copyVoiceBtn");
 
 btn.addEventListener("mousedown", startRecording);
 btn.addEventListener("mouseup", stopRecording);
 btn.addEventListener("touchstart", startRecording);
 btn.addEventListener("touchend", stopRecording);
+
+function enableCopyBtn(){
+  copyBtn.style.display="flex";
+}
+
+copyBtn.addEventListener("click", function(){
+    navigator.clipboard.writeText(statusBox.innerText);
+    copyBtn.innerHTML = "✔";
+    setTimeout(()=> copyBtn.innerHTML="📋", 1200)
+});
 
 function startRecording(e) {
     if (recording) return;
@@ -389,7 +405,7 @@ function startRecording(e) {
     startTime = Date.now();
 
     btn.classList.add("recording");
-    statusBox.innerHTML = "🎙️";
+    statusBox.innerHTML = "🎙️...";
     statusBox.style.color = "#ff3b3b";
 
     navigator.mediaDevices.getUserMedia({ audio: true })
@@ -405,7 +421,7 @@ async function stopRecording(e) {
     recording = false;
 
     btn.classList.remove("recording");
-    statusBox.innerHTML = "⏳";
+    statusBox.innerHTML = "⏳...";
     statusBox.style.color = "#ffaa00";
     mediaRecorder.stop();
 
@@ -423,8 +439,10 @@ async function stopRecording(e) {
 
         let raw = await r.text();
         let res = JSON.parse(raw);
-        statusBox.innerHTML = "✔"+ res.text;;
+        statusBox.innerHTML = res.text;
         statusBox.style.color = "#111111";
+
+        enableCopyBtn();
 
         window.parent.postMessage(
             { type: "voice-text", text: res.text },
@@ -434,8 +452,9 @@ async function stopRecording(e) {
 }
 </script>
 """,
-height=80
+height=120
 )
+
 
 
 
