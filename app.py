@@ -383,21 +383,6 @@ else:
 with col1:
     st.markdown(f"<div style='color: #000000;font-size:20px; font-weight:600;'>{left_label}</div>", unsafe_allow_html=True)
 
-    #if "temp_voice_text" in st.session_state and st.session_state.temp_voice_text:
-    #    default_text = st.session_state.temp_voice_text
-    #    st.session_state.temp_voice_text = ""   # reset
-    #else:
-    #    default_text = st.session_state.input_text
-    #if "_component_value" in st.session_state and st.session_state._component_value:
-    #    st.session_state.input_text = st.session_state._component_value
-    #    st.session_state._component_value = None
-    #    st.session_state.update_trigger += 1
-    #input_text = st.text_area(
-    #    "",
-    #    value=st.session_state.input_text,
-    #    height=200,
-    #    key="input_text"
-    #)
     input_text = st.text_area(
         "",
         st.session_state.input_text,
@@ -495,7 +480,7 @@ async function stopRecording(e) {
 
         statusBox.innerHTML = "✔ OK: " + res.text;
 
-        parent.postMessage(
+        window.top.postMessage(
             { isStreamlitMessage: true, type: "streamlit:setComponentValue", value: res.text },
             "*"
         );
