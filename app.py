@@ -283,14 +283,14 @@ st.markdown("""
 
     /* TEXTBOX TRẮNG TO HƠN */
     textarea {
-        height: 260px !important;
+        height: 180px !important;
         font-size: 17px !important;
     }
 
     /* THU NHỎ SWAP BUTTON */
     .swap-container button {
-        width: 55px !important;
-        height: 55px !important;
+        width: 60px !important;
+        height: 60px !important;
         font-size: 22px !important;
     }
 
