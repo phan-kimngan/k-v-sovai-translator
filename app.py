@@ -382,6 +382,7 @@ else:
 # ==============================
 # 8. LEFT PANEL
 # ==============================
+
 with col1:
     st.markdown(f"<div style='color: #000000;font-size:20px; font-weight:600;'>{left_label}</div>", unsafe_allow_html=True)
 
@@ -394,19 +395,28 @@ with col1:
     #    st.session_state.input_text = st.session_state._component_value
     #    st.session_state._component_value = None
     #    #st.session_state.update_trigger += 1
-    input_text = st.text_area(
-        "",
-        value=st.session_state.input_text,
+    voice_text = components.declare_component("voice_text", path="") 
+    if val:
+        st.session_state.input_text = val    
+    st.text_area(
+        "Input",
         height=200,
-        key=f"input_widget_{st.session_state.update_trigger}"
+        key="input_text",
+        label_visibility="collapsed",
     )
+    #input_text = st.text_area(
+   #     "",
+    #    value=st.session_state.input_text,
+    #    height=200,
+    #    key=f"input_widget_{st.session_state.update_trigger}"
+    #)
     st.write(st.session_state)
-    if "_component_value" in st.session_state and st.session_state._component_value:
-        st.write("DEBUG _component_value =", st.session_state._component_value)
-        st.session_state.input_text = st.session_state._component_value
-        st.session_state._component_value = None  # reset lại
-        st.session_state.update_trigger += 1
-        st.rerun()
+    #if "_component_value" in st.session_state and st.session_state._component_value:
+     #   st.write("DEBUG _component_value =", st.session_state._component_value)
+     #   st.session_state.input_text = st.session_state._component_value
+      #  st.session_state._component_value = None  # reset lại
+      #  st.session_state.update_trigger += 1
+       # st.rerun()
     
         
         
@@ -495,10 +505,11 @@ async function stopRecording(e) {
 
         statusBox.innerHTML = "✔ OK: " + res.text;
 
-        window.parent.postMessage(
-            { isStreamlitMessage: true, type: "streamlit:setComponentValue", value: res.text },
-            "*"
-        );
+        #window.parent.postMessage(
+        #    { isStreamlitMessage: true, type: "streamlit:setComponentValue", value: res.text },
+        #    "*"
+        #);
+        Streamlit.setComponentValue(res.text)
     }
 }
 </script>
