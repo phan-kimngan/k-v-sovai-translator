@@ -4,11 +4,8 @@ import pandas as pd
 from datetime import datetime
 import requests
 import streamlit.components.v1 as components
-from streamlit.runtime.scriptrunner import add_message_listener
 
-def on_custom_message(msg):
-    if msg.get("type") == "streamlit:setComponentValue":
-        st.session_state._component_value = msg.get("value")
+
 
 API_kor_to_vie = "https://tenacious-von-occludent.ngrok-free.dev/kor2vie"
 API_vie_to_kor = "https://tenacious-von-occludent.ngrok-free.dev/vie2kor"      
@@ -200,7 +197,7 @@ if "translation" not in st.session_state:
 
 if "history" not in st.session_state:
     st.session_state.history = []
-add_message_listener(on_custom_message)
+
 
 # ==============================
 # 3. CSS
