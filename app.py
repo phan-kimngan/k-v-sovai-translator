@@ -5,17 +5,7 @@ from datetime import datetime
 import requests
 import streamlit.components.v1 as components
 from streamlit_webrtc import webrtc_streamer, AudioProcessorBase
-import av
-import io
-class AudioProcessor(AudioProcessorBase):
-    def __init__(self):
-        self.audio_data = b""
 
-    def recv_audio(self, frame: av.AudioFrame) -> av.AudioFrame:
-        pcm = frame.to_ndarray()
-        pcm = pcm.tobytes()
-        self.audio_data += pcm
-        return frame
 
 
 API_kor_to_vie = "https://tenacious-von-occludent.ngrok-free.dev/kor2vie"
