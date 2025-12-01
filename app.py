@@ -116,7 +116,12 @@ st.markdown("""
     }
 
     /* thu gọn padding của container chính */
-
+    .block-container {
+        padding-left: 1px !important;
+        padding-right: 1px !important;
+        padding-top: 1px !important;
+        padding-bottom: 1px !important;
+    }
 
     /* header gọn hơn một chút */
     h2 {
