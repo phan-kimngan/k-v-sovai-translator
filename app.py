@@ -481,15 +481,11 @@ async function stopRecording(e) {
 
         statusBox.innerHTML = "✔ OK: " + res.text;
 
-        setTimeout(() => {
-    const box = window.parent.document.querySelector('textarea[data-testid="stTextArea"]');
-    if (box) {
-        box.value = res.text;
-        box.dispatchEvent(new Event('input', { bubbles: true }));
-    } else {
-        console.log("❗ Không tìm thấy textarea");
-    }
-}, 200);
+        window.parent.postMessage(
+    { type: "UPDATE_INPUT_TEXT", value: res.text },
+    "*"
+);
+
     }
 }
 </script>
@@ -650,6 +646,20 @@ for item in reversed(st.session_state.history):
         """,
         unsafe_allow_html=True
     )
+# Lắng nghe message từ JS
+components.html("""
+<script>
+window.addEventListener("message", (event) => {
+    if (event.data?.type === "UPDATE_INPUT_TEXT") {
+        const text = event.data.value;
+        window.parent.postMessage(
+            { isStreamlitMessage: true, type: "streamlit:setComponentValue", value: text },
+            "*"
+        );
+    }
+});
+</script>
+""", height=0)
 if "_component_value" in st.session_state and st.session_state._component_value:
     st.session_state.input_text = st.session_state._component_value
     st.session_state._component_value = None
