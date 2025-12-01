@@ -325,6 +325,38 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+st.markdown("""
+<style>
+
+@media (max-width: 600px) {
+
+    /* TẠO KHOẢNG CÁCH GIỮA LABEL VÀ TEXTBOX */
+    .lang-label {
+        margin-bottom: 12px !important;
+    }
+
+    textarea {
+        margin-top: 6px !important;  
+    }
+
+    /* CĂN HÀNG NGANG CHO 🔊 + 🎤 */
+    .audio-row {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 14px !important;
+        align-items: center !important;
+        margin-top: 6px !important;
+    }
+
+    .audio-row > div {
+        display: flex !important;
+        align-items: center !important;
+    }
+
+}
+
+</style>
+""", unsafe_allow_html=True)
 
 # 4. HEADER
 # ==============================
@@ -391,7 +423,7 @@ with col1:
         key="input_text",
         label_visibility="collapsed"
     )
-    
+     st.markdown("<div class='audio-row'>", unsafe_allow_html=True)
     if st.button("🔊", key="speak_input"):
         if input_text.strip():
             tts = gTTS(input_text, lang=src_tts_lang)
@@ -510,7 +542,7 @@ async function stopRecording(e) {
 """,
 height=95
 )
-
+    st.markdown("</div>", unsafe_allow_html=True)
     st.components.v1.html(
 """
 <script>
