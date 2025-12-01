@@ -391,12 +391,6 @@ with col1:
     label_visibility="collapsed"
     )
 
-    my_component = components.declare_component("my_voice_component")
-
-    res_text = my_component()
-
-    if res_text:
-        st.session_state.input_text = res_text
     components.html(
 """
 <button id="holdToTalk"
