@@ -487,7 +487,6 @@ async function stopRecording(e) {
         let res = JSON.parse(raw);
 
         statusBox.innerHTML = "✔ OK: " + res.text;
-        #Streamlit.setComponentValue(res.text);
 
         window.parent.postMessage(
             { isStreamlitMessage: true, type: "streamlit:setComponentValue", value: res.text },
@@ -500,8 +499,8 @@ async function stopRecording(e) {
 height=230
 )
 
-
     st.write(st.session_state)
+
 
     if st.button("🔊", key="speak_input"):
         if input_text.strip():
