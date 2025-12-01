@@ -57,17 +57,7 @@ st.markdown("""
         padding: -50 !important;
     }
 
-    /* nút swap */
-    .swap-container button {
-        font-size: 28px !important;
-        width: 80px !important;
-        height: 80px !important;
-        border-radius: 50% !important;
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        margin: 0 auto !important;
-    }
+
 
     /* ===== giảm khoảng trắng extra giữa các phần tử ===== */
     .block-container {
