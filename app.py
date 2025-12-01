@@ -406,70 +406,105 @@ with col1:
         border-radius:8px;
         background:#ff4b4b;
         color:white;">
-    🎤 NHẤN VÀ GIỮ ĐỂ NÓI
+    🎤 NHẤN & GIỮ ĐỂ NÓI
 </button>
 <p id="status" style="font-size:14px;color:#444;"></p>
 
 <script>
 let mediaRecorder;
 let chunks = [];
+let recording = false;
 
 const btn = document.getElementById("holdToTalk");
 const statusBox = document.getElementById("status");
 
-// BẮT ĐẦU GHI ÂM KHI GIỮ NÚT
+// MOBILE & PC
 btn.onmousedown = startRecording;
 btn.ontouchstart = startRecording;
-
-// DỪNG GHI ÂM KHI THẢ NÚT
 btn.onmouseup = stopRecording;
 btn.ontouchend = stopRecording;
 
 
-function startRecording() {
+function startRecording(e) {
+    if (recording) return;
+    recording = true;
     chunks = [];
     statusBox.innerHTML = "🎙️ Đang ghi âm...";
 
     navigator.mediaDevices.getUserMedia({ audio: true })
     .then(stream => {
         mediaRecorder = new MediaRecorder(stream);
-        mediaRecorder.start();
 
-        mediaRecorder.ondataavailable = e => chunks.push(e.data);
+        mediaRecorder.ondataavailable = e => {
+            if (e.data.size > 0) chunks.push(e.data);
+        };
+
+        mediaRecorder.start();
+    })
+    .catch(err => {
+        statusBox.innerHTML = "❗ Micro bị chặn: " + err;
     });
 }
 
-function stopRecording() {
-    if (!mediaRecorder) return;
+
+async function stopRecording(e) {
+    if (!recording) return;
+    recording = false;
+
     statusBox.innerHTML = "⏳ Đang xử lý...";
 
     mediaRecorder.stop();
+
     mediaRecorder.onstop = async () => {
         const blob = new Blob(chunks, { type: 'audio/webm' });
-        
+
         let formData = new FormData();
         formData.append("file", blob, "voice.webm");
 
-        let r = await fetch("https://tenacious-von-occludent.ngrok-free.dev/voice2text", {
-            method: "POST",
-            body: formData
-        });
+        console.log("====== SEND TO API ======");
+        console.log("Sending:", blob);
 
-        let res = await r.json();
-        statusBox.innerHTML = "✔ OK: " + res.text;
+        try {
+            let r = await fetch("https://tenacious-von-occludent.ngrok-free.dev/voice2text", {
+                method: "POST",
+                body: formData,
+                mode: "cors"
+            });
 
-        window.parent.postMessage(
-            {
-                isStreamlitMessage: true,
-                type: "streamlit:setComponentValue",
-                value: res.text
-            }, "*");
+            console.log("HTTP STATUS:", r.status);
+
+            let raw = await r.text();
+            console.log("RAW RESPONSE:", raw);
+
+            let res = null;
+
+            try {
+                res = JSON.parse(raw);
+            } catch {
+                statusBox.innerHTML = "❗ API không trả JSON!";
+                return;
+            }
+
+            statusBox.innerHTML = "✔ OK: " + res.text;
+
+            window.parent.postMessage(
+                {
+                    isStreamlitMessage: true,
+                    type: "streamlit:setComponentValue",
+                    value: res.text
+                }, "*");
+
+        } catch (err) {
+            console.log("FETCH ERROR:", err);
+            statusBox.innerHTML = "❗ Lỗi fetch: " + err;
+        }
     }
 }
 </script>
 """,
-height=220
+height=230
 )
+
 
 
     if st.button("🔊", key="speak_input"):
