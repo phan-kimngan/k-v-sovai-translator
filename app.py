@@ -394,25 +394,18 @@ with col1:
     #    st.session_state.input_text = st.session_state._component_value
     #    st.session_state._component_value = None
     #    #st.session_state.update_trigger += 1
-    #input_text = st.text_area(
-    #    "",
-   #     value=st.session_state.input_text,
-   #     height=200,
-   #     key="input_text"
-   # )
-    if "_component_value" in st.session_state and st.session_state._component_value:
-        st.session_state.input_text = st.session_state._component_value
-        st.session_state._component_value = None  # reset lại
-        # ❌ KHÔNG st.rerun() ở đây, không cần thiết
-
-    # 2️⃣ TẠO TEXTBOX – KHÔNG SỬA session_state.input_text SAU DÒNG NÀY NỮA
     input_text = st.text_area(
-        "Input",                   # tránh warning label rỗng
+        "",
         value=st.session_state.input_text,
         height=200,
-        key="input_text",
-        label_visibility="collapsed",  # ẩn label nhưng vẫn hợp lệ
-    )       
+        key=f"input_widget_{st.session_state.update_trigger}"
+    )
+    if "_component_value" in st.session_state._component_value:
+        st.session_state.input_text = st.session_state._component_value
+        st.session_state._component_value = None  # reset lại
+        st.session_state.update_trigger += 1
+        st.rerun()
+    
         
         
     #st.session_state.input_text = input_text
