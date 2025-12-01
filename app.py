@@ -381,7 +381,7 @@ else:
 # 8. LEFT PANEL
 # ==============================
 with col1:
-    st.markdown(f"<div style='color: #000000;font-size:20px; font-weight:600;'>{left_label}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div style='color: #000000;font-size:20px; font-weight:600;margin-bottom:10px;'>{left_label}</div>", unsafe_allow_html=True)
 
     input_text = st.text_area(
         " ",
@@ -541,7 +541,7 @@ window.addEventListener('message', (event) => {
 # 9. RIGHT PANEL
 # ==============================
 with col2:
-    st.markdown(f"<div style='color: #000000; font-size:20px; font-weight:600;'>{right_label}</div>", unsafe_allow_html=True)
+    st.markdown(f"<div style='color: #000000; font-size:20px; font-weight:600;margin-bottom:10px;'>{right_label}</div>", unsafe_allow_html=True)
 
     st.text_area(
         " ",
