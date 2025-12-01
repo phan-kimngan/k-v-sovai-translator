@@ -392,7 +392,7 @@ with col1:
         label_visibility="collapsed"
     )
     subcol1, subcol2 = st.columns(3,1)
-    subcol2: 
+    with subcol2: 
         components.html(
 """
 <button id="holdToTalk"
@@ -505,7 +505,7 @@ window.addEventListener('message', (event) => {
         st.session_state.input_text = qp["recorded"][0]
         st.experimental_set_query_params()  # clear param
         st.experimental_rerun()
-    subcol1: 
+    with subcol1: 
         if st.button("🔊", key="speak_input"):
             if input_text.strip():
                 tts = gTTS(input_text, lang=src_tts_lang)
