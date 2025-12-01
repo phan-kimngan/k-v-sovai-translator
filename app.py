@@ -341,6 +341,15 @@ st.markdown("""
 }
 </style>
 """, unsafe_allow_html=True)
+st.markdown("""
+<style>
+@media (max-width: 600px) {
+    .swap-container {
+        transform: translateY(-30px) !important;
+    }
+}
+</style>
+""", unsafe_allow_html=True)
 # 4. HEADER
 # ==============================
 st.markdown(
