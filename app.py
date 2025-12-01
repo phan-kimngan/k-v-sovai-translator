@@ -5,10 +5,7 @@ from datetime import datetime
 import requests
 #from predict import translate_kor_to_vie
 #from predict_2 import translate_vie_to_kor
-def translate_kor_to_vie(text):
-    return text
-def translate_vie_to_kor(text):
-    return text
+
 
 API_URL_kor_to_vie = "https://tenacious-von-occludent.ngrok-free.dev/kor2vie" #translate_kor_to_vie
 API_URL_vie_to_kor = "https://tenacious-von-occludent.ngrok-free.dev/vie2kor" #translate_kor_to_vie
