@@ -325,7 +325,13 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-
+st.markdown("""
+<style>
+div.row-widget.stButton {
+    margin-top: -12px !important;
+}
+</style>
+""", unsafe_allow_html=True)
 # 4. HEADER
 # ==============================
 st.markdown(
