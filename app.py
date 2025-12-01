@@ -417,6 +417,8 @@ with col1:
     align-items:center;
     cursor:pointer;
     transition: 0.12s;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 #holdToTalk:hover {
