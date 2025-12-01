@@ -400,6 +400,17 @@ with col1:
                 st.audio(f.read(), format="audio/mp3")  
 
     # NÚT RECORD + STATUS + JS
+    st.markdown("""
+<style>
+.audio-inline {
+    display:flex;
+    flex-direction:row;
+    gap:4px !important;
+    margin-top:6px !important;
+    margin-bottom:0px !important;
+}
+</style>
+""", unsafe_allow_html=True)
     components.html(
 """
 <style>
