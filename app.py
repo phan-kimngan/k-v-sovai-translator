@@ -256,26 +256,10 @@ st.markdown(
 # ==============================
 # 5. LAYOUT
 
-col1, col_center, col2 = st.columns([1, 0.25, 1])
+col1, col2 = st.columns([1, 1])
 #col1, col2 = st.columns(2)
 
-# ==============================
-# 6. SWAP
-# ==============================
-with col_center:
-    #st.markdown("<div class='swap-container'>", unsafe_allow_html=True)
-    st.markdown(f"<div style='align-items: center !important; margin-top: -30px !important; margin-bottom: -30px !important;'>", unsafe_allow_html=True)
-    swap_clicked = st.button("⬆️⬇️", key="swap_button")
-    st.markdown("</div>", unsafe_allow_html=True)
 
-if swap_clicked:
-    st.session_state.mode = "kr_to_vi" if st.session_state.mode == "vi_to_kr" else "vi_to_kr"
-
-    old_in = st.session_state.input_text
-    old_out = st.session_state.translation
-
-    st.session_state.input_text = old_out
-    st.session_state.translation = old_in
 
 # ==============================
 # 7. LABEL CONFIG
@@ -315,7 +299,23 @@ with col1:
             with open("input_tts.mp3", "rb") as f:
                 st.audio(f.read(), format="audio/mp3")  
 
+# ==============================
+# 6. SWAP
+# ==============================
 
+#st.markdown("<div class='swap-container'>", unsafe_allow_html=True)
+st.markdown(f"<div style='align-items: center !important; margin-top: -30px !important; margin-bottom: -30px !important;'>", unsafe_allow_html=True)
+swap_clicked = st.button("⬆️⬇️", key="swap_button")
+st.markdown("</div>", unsafe_allow_html=True)
+
+if swap_clicked:
+    st.session_state.mode = "kr_to_vi" if st.session_state.mode == "vi_to_kr" else "vi_to_kr"
+
+    old_in = st.session_state.input_text
+    old_out = st.session_state.translation
+
+    st.session_state.input_text = old_out
+    st.session_state.translation = old_in
 
 # ==============================
 # 9. RIGHT PANEL
