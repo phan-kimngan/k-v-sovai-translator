@@ -391,13 +391,12 @@ with col1:
     label_visibility="collapsed"
     )
 
-    components.html("""
-    <script>
-    window.getInputBox = function() {
-        return window.parent.document.querySelector('textarea[data-testid="stTextArea"]');
-    }
-    </script>
-    """, height=0)
+    my_component = components.declare_component("my_voice_component")
+
+    res_text = my_component()
+
+    if res_text:
+        st.session_state.input_text = res_text
     components.html(
 """
 <button id="holdToTalk"
@@ -482,7 +481,7 @@ async function stopRecording(e) {
         statusBox.innerHTML = "✔ OK: " + res.text;
 
         window.parent.postMessage(
-    { type: "UPDATE_INPUT_TEXT", value: res.text },
+    { isStreamlitMessage: true, type: "streamlit:setComponentValue", value: res.text },
     "*"
 );
 
@@ -646,20 +645,7 @@ for item in reversed(st.session_state.history):
         """,
         unsafe_allow_html=True
     )
-# Lắng nghe message từ JS
-components.html("""
-<script>
-window.addEventListener("message", (event) => {
-    if (event.data?.type === "UPDATE_INPUT_TEXT") {
-        const text = event.data.value;
-        window.parent.postMessage(
-            { isStreamlitMessage: true, type: "streamlit:setComponentValue", value: text },
-            "*"
-        );
-    }
-});
-</script>
-""", height=0)
+
 if "_component_value" in st.session_state and st.session_state._component_value:
     st.session_state.input_text = st.session_state._component_value
     st.session_state._component_value = None
