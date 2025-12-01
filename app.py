@@ -470,39 +470,26 @@ async function stopRecording(e) {
 height=230
 )
 
+    with open("voice.webm", "rb") as f:
+    files = {
+        "file": ("voice.webm", f, "audio/webm")
+    }
+
     with st.spinner("Đang nhận dạng giọng nói... ⏳"):
-            # Gửi file audio tới API voice2text (giống như JS phía client trước đây)
-        files = {
-                "file": ("voice.webm", audio_file, "audio/webm")
-            }
-        try:
-            r = requests.post(
-                    "https://tenacious-von-occludent.ngrok-free.dev/voice2text",
-                    files=files,
-                    headers={"ngrok-skip-browser-warning": "1"}
-            )
-            data = r.json()
-                # tuỳ API trả về key "text" hay "result"
-            text = data.get("text") or data.get("result") or ""
-        except Exception as e:
-            text = ""
-            st.error(f"Lỗi khi gọi API voice2text: {e}")
-
-        if text:
-                # Cập nhật session_state và rerun để textbox bên trái nhận giá trị mới
-            st.session_state.input_text = text
-            st.experimental_rerun()
-        else:
-            st.warning("⚠ Không nhận dạng được nội dung từ file âm thanh.")
-
-
+        r = requests.post(
+            "https://tenacious-von-occludent.ngrok-free.dev/voice2text",
+            files=files
+        )
+        data = r.json()
+        text = data.get("text") or data.get("result") or ""
+        st.session_state.input_text = text
+        st.experimental_rerun()
     if st.button("🔊", key="speak_input"):
         if input_text.strip():
             tts = gTTS(input_text, lang=src_tts_lang)
             tts.save("input_tts.mp3")
             with open("input_tts.mp3", "rb") as f:
-                st.audio(f.read(), format="audio/mp3")
-   
+                st.audio(f.read(), format="audio/mp3")  
 
 
 
