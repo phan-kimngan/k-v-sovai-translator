@@ -54,7 +54,7 @@ st.markdown("""
         align-items: center !important;
         width: 100% !important;
         margin: 0 auto !important;
-        padding: -30 !important;
+        padding: -50 !important;
     }
 
     /* nút swap */
