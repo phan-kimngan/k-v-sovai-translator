@@ -424,6 +424,7 @@ if st.button("🌐 Translate", use_container_width=True):
         with st.spinner("Translating... ⏳"):
             #result = translate_func(text)
             result = requests.get(translate_func, params={"text": text})
+            result = result.json()["result"]
 
             st.session_state.translation = result
 
