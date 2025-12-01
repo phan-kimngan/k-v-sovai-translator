@@ -307,6 +307,13 @@ with col1:
         key="input_text",
         label_visibility="collapsed"
     )
+        
+    if st.button("🔊", key="speak_input"):
+        if input_text.strip():
+            tts = gTTS(input_text, lang=src_tts_lang)
+            tts.save("input_tts.mp3")
+            with open("input_tts.mp3", "rb") as f:
+                st.audio(f.read(), format="audio/mp3")  
     # NÚT RECORD + STATUS + JS
     st.markdown("""
 <style>
@@ -429,13 +436,7 @@ async function stopRecording(e) {
 """,
 height=80
 )
-    
-    if st.button("🔊", key="speak_input"):
-        if input_text.strip():
-            tts = gTTS(input_text, lang=src_tts_lang)
-            tts.save("input_tts.mp3")
-            with open("input_tts.mp3", "rb") as f:
-                st.audio(f.read(), format="audio/mp3")  
+
 
 
 
