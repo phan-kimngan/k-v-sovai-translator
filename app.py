@@ -296,7 +296,7 @@ st.markdown("""
 
     /* THU NHỎ KHOẢNG CÁCH GIỮA 2 TEXTBOX */
     .swap-container {
-        height: 10px !important;
+        height: 1px !important;
         margin-top: -60px !important;
         margin-bottom: -14px !important;
         padding: -10 !important;
