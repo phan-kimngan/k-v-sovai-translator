@@ -240,6 +240,24 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+st.markdown("""
+<style>
+@media (max-width: 600px) {
+    .audio-row {
+        display:flex !important;
+        flex-direction:row !important;
+        align-items:center !important;
+        gap:6px !important;
+        margin-top:-4px !important;
+        margin-bottom:-4px !important;
+    }
+    .audio-row > div {
+        margin:0 !important;
+        padding:0 !important;
+    }
+}
+</style>
+""", unsafe_allow_html=True)
 
 
 # 4. HEADER
