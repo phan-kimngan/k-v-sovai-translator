@@ -396,33 +396,20 @@ with col1:
     #    st.session_state._component_value = None
     #    #st.session_state.update_trigger += 1
     # 🔥 NHẬN GIÁ TRỊ TEXT TỪ COMPONENT
-    voice_text = components.declare_component("voice_text", path="")
-    val = voice_text()
 
-    # 🔥 nếu nhận text từ voice
-    if isinstance(val, str) and val.strip():
-        st.session_state.input_text = val
-
-    st.text_area(
-        "Input",
-        value=st.session_state.input_text,
+    input_text = st.text_area(
+       "",
+       value=st.session_state.input_text,
         height=200,
-        key="input_text",
-        label_visibility="collapsed",
+        key=f"input_widget_{st.session_state.update_trigger}"
     )
-    #input_text = st.text_area(
-   #     "",
-    #    value=st.session_state.input_text,
-    #    height=200,
-    #    key=f"input_widget_{st.session_state.update_trigger}"
-    #)
     st.write(st.session_state)
-    #if "_component_value" in st.session_state and st.session_state._component_value:
-     #   st.write("DEBUG _component_value =", st.session_state._component_value)
-     #   st.session_state.input_text = st.session_state._component_value
-      #  st.session_state._component_value = None  # reset lại
-      #  st.session_state.update_trigger += 1
-       # st.rerun()
+    if "_component_value" in st.session_state and st.session_state._component_value:
+        st.write("DEBUG _component_value =", st.session_state._component_value)
+        st.session_state.input_text = st.session_state._component_value
+        st.session_state._component_value = None  # reset lại
+        st.session_state.update_trigger += 1
+        st.rerun()
     
         
         
