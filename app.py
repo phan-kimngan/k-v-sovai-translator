@@ -404,8 +404,8 @@ with col1:
 """
 <style>
 #holdToTalk {
-    width: 48px;
-    height: 48px;
+    width: 42px;
+    height: 42px;
     font-size: 22px;
     border-radius: 14px;
     background: rgba(255,255,255,0.58);
@@ -496,9 +496,8 @@ async function stopRecording(e) {
 
         let raw = await r.text();
         let res = JSON.parse(raw);
-
         statusBox.innerHTML = "✔"+ res.text;;
-        statusBox.style.color = "#009f10";
+        statusBox.style.color = "#111111";
 
         window.parent.postMessage(
             { type: "voice-text", text: res.text },
