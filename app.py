@@ -340,16 +340,16 @@ with col1:
 }
 
 #copyVoiceBtn {
-    width: 40px;
-    height: 40px;
-    font-size: 18px;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
     border-radius: 10px;
     background: rgba(255,255,255,0.55);
     border:1px solid rgba(255,255,255,0.8);
     display:none;
     justify-content:center;
     align-items:center;
-    margin-left:10px;
+    margin-right:10px;
 }
 
 /* khi đang ghi âm */
