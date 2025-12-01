@@ -360,6 +360,8 @@ if swap_clicked:
     st.session_state.input_text = old_out
     st.session_state.translation = old_in
 
+    st.session_state.update_trigger += 1
+    st.rerun()
 # ==============================
 # 7. LABEL CONFIG
 # ==============================
