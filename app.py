@@ -389,7 +389,10 @@ with col1:
     #    st.session_state.temp_voice_text = ""   # reset
     #else:
     #    default_text = st.session_state.input_text
-
+    if "_component_value" in st.session_state and st.session_state._component_value:
+        st.session_state.input_text = st.session_state._component_value
+        st.session_state._component_value = None
+        st.session_state.update_trigger += 1
     input_text = st.text_area(
         "",
         st.session_state.input_text,
@@ -397,7 +400,7 @@ with col1:
         key="input_text"
     )
 
-    st.session_state.input_text = input_text
+    #st.session_state.input_text = input_text
 
     components.html(
 """
