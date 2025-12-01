@@ -404,21 +404,19 @@ with col1:
 """
 <style>
 #holdToTalk {
-    width: 42px;
-    height: 40px;
-    font-size: 22px;
-    border-radius: 14px;
-    background: rgba(255,255,255,0.58);
+    width: 38px;
+    height: 38px;
+    font-size: 20px;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.45);
     color: #1E1E1E;
-    border: 1px solid rgba(255,255,255,0.8);
-    box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+    border: 1px solid rgba(255,255,255,0.6);
+    box-shadow: none;
     display:flex;
     justify-content:center;
     align-items:center;
-    cursor:pointer;
-    transition: 0.12s;
-    margin: -30 !important;
-    padding: -30 !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 #holdToTalk:hover {
