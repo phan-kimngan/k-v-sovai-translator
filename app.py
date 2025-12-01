@@ -414,23 +414,22 @@ with col1:
     components.html(
 """
 <style>
-#holdToTalk {
-    width: 38px;
-    height: 38px;
-    font-size: 20px;
-    border-radius: 8px;
-    background: rgba(255,255,255,0.45);
-    color: #1E1E1E;
-    border: 1px solid rgba(255,255,255,0.6);
-    box-shadow: none;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    margin: 0 !important;
-    padding: 0 !important;
-    margin-left: -6px !important;
-}
 
+#holdToTalk {
+    width: 40px !important;
+    height: 40px !important;
+    font-size: 20px !important;
+    border-radius: 10px !important;
+    background: rgba(255,255,255,0.55) !important;
+    color: #1E1E1E !important;
+    border: 1px solid rgba(255,255,255,0.8) !important;
+    display:flex !important;
+    justify-content:center !important;
+    align-items:center !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.15) !important;
+}
 #holdToTalk:hover {
     background: rgba(255,255,255,0.82);
     transform: scale(1.07);
