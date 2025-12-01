@@ -40,10 +40,7 @@ function startRecognition() {
 height=80,
 )
 
-# LẮNG NGHE KẾT QUẢ GIỌNG NÓI, ĐẨY VÀO TEXTBOX
-speech = st.experimental_get_query_params().get("speechResult", [""])[0]
-if speech:
-    st.session_state.input_text = speech
+
 
 
 API_kor_to_vie = "https://tenacious-von-occludent.ngrok-free.dev/kor2vie"
@@ -234,6 +231,11 @@ if "translation" not in st.session_state:
 if "history" not in st.session_state:
     st.session_state.history = []
 
+
+# LẮNG NGHE KẾT QUẢ GIỌNG NÓI, ĐẨY VÀO TEXTBOX
+speech = st.experimental_get_query_params().get("speechResult", [""])[0]
+if speech:
+    st.session_state.input_text = speech
 # ==============================
 # 3. CSS
 # ==============================
