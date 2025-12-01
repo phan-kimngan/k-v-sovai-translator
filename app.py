@@ -159,13 +159,6 @@ st.markdown("""
         font-size: 24px !important;
     }
 
-    /* textarea thấp hơn để đỡ chiếm chiều cao màn hình */
-    textarea {
-        height: 150px !important;
-        font-size: 16px !important;
-    }
-
-
     /* nút bấm nhỏ gọn hơn */
     .stButton > button {
         padding: 6px 12px !important;
