@@ -283,7 +283,7 @@ st.markdown("""
 
     /* TEXTBOX TRẮNG TO HƠN */
     textarea {
-        height: 180px !important;
+        height: 200px !important;
         font-size: 17px !important;
     }
 
@@ -298,14 +298,7 @@ st.markdown("""
 
 </style>
 """, unsafe_allow_html=True)
-st.markdown("""
-<style>
-div[data-baseweb="textarea"] {
-    margin-bottom: 0px !important;
-}
 
-</style>
-""", unsafe_allow_html=True)
 # 4. HEADER
 # ==============================
 st.markdown(
