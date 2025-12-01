@@ -399,12 +399,18 @@ with col1:
 """
 <button id="holdToTalk"
     style="
-        width:100%;
-        padding:16px;
-        font-size:18px;
-        border-radius:8px;
-        background:#ff4b4b;
-        color:white;">
+            position: relative;
+            width:42px;
+            height:42px;
+            font-size:20px;
+            border-radius:50%;
+            background:#ff3b30;
+            color:white;
+            border:none;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            cursor:pointer;">
     🎤 NHẤN & NHẤC TAY RA ĐỂ KẾT THÚC
 </button>
 <p id="status" style="font-size:14px;color:#444;"></p>
