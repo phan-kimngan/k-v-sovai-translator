@@ -324,7 +324,23 @@ st.markdown("""
 
 </style>
 """, unsafe_allow_html=True)
+st.markdown("""
+<style>
+@media (max-width: 600px) {
 
+    /* căn 2 nút audio nằm ngang */
+    .audio-inline {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 8px !important;  /* chỉnh khoảng cách giữa 🔊 và 🎤 */
+        margin-top: 6px !important;
+        margin-bottom: -6px !important;
+    }
+
+}
+</style>
+""", unsafe_allow_html=True)
 # 4. HEADER
 # ==============================
 st.markdown(
@@ -391,7 +407,7 @@ with col1:
         label_visibility="collapsed"
     )
 
-
+    
     # NÚT RECORD + STATUS + JS
     components.html(
 """
@@ -526,7 +542,7 @@ window.addEventListener('message', (event) => {
         st.session_state.input_text = qp["recorded"][0]
         st.experimental_set_query_params()  # clear param
         st.experimental_rerun()
-    st.markdown("<div class='audio-row'>", unsafe_allow_html=True)
+    st.markdown("<div class='audio-inline'>", unsafe_allow_html=True)
     if st.button("🔊", key="speak_input"):
         if input_text.strip():
             tts = gTTS(input_text, lang=src_tts_lang)
