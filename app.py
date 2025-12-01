@@ -390,7 +390,7 @@ with col1:
         key="input_text",
     label_visibility="collapsed"
     )
-    value = components.html(
+    components.html(
 """
 <button id="holdToTalk"
     style="
@@ -489,8 +489,10 @@ async function stopRecording(e) {
 """,
 height=230
 )
-    if value:
-        st.session_state.input_text = value
+    # Nếu có dữ liệu mới từ JS component
+    if "voiceInput" in st.session_state and st.session_state.voiceInput:
+        st.session_state.input_text = st.session_state.voiceInput
+        st.session_state.voiceInput = ""  # reset tránh lặp lại
         st.rerun()
    
 
