@@ -47,15 +47,7 @@ st.markdown("""
         align-items: center !important;
     }
 
-    /* container swap */
-    .swap-container {
-        display: flex !important;
-        justify-content: center !important;
-        align-items: center !important;
-        width: 100% !important;
-        margin: 0 auto !important;
-        padding: -50 !important;
-    }
+
 
 
 
