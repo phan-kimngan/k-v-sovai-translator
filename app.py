@@ -389,7 +389,10 @@ with col1:
     #    st.session_state.temp_voice_text = ""   # reset
     #else:
     #    default_text = st.session_state.input_text
-
+    if "_component_value" in st.session_state and st.session_state._component_value:
+        st.session_state.input_text = st.session_state._component_value
+        st.session_state._component_value = None
+        #st.session_state.update_trigger += 1
     input_text = st.text_area(
         "",
         st.session_state.input_text,
@@ -397,11 +400,8 @@ with col1:
         key="input_text"
     )
     
-    if "_component_value" in st.session_state and st.session_state._component_value:
-        st.session_state.input_text = st.session_state._component_value
-        st.session_state._component_value = None
-        st.session_state.update_trigger += 1
-        st.rerun()
+
+        
         
         
     #st.session_state.input_text = input_text
@@ -480,7 +480,7 @@ async function stopRecording(e) {
         let r = await fetch("https://tenacious-von-occludent.ngrok-free.dev/voice2text", {
             method: "POST",
             body: formData,
-            mode: "cors",
+            #mode: "cors",
             headers: {"ngrok-skip-browser-warning": "1" }
         });
 
@@ -655,7 +655,10 @@ for item in reversed(st.session_state.history):
         """,
         unsafe_allow_html=True
     )
-
+if "_component_value" in st.session_state and st.session_state._component_value:
+    st.session_state.input_text = st.session_state._component_value
+    st.session_state._component_value = None
+    st.rerun()
 # 11. FOOTER
 # ==============================
 st.markdown("<hr>", unsafe_allow_html=True)
