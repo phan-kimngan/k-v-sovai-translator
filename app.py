@@ -4,12 +4,7 @@ import pandas as pd
 from datetime import datetime
 import requests
 import streamlit.components.v1 as components
-import streamlit.components.v1 as components
 
-voice_recorder = components.declare_component(
-    "voice_recorder",
-    path="voice_recorder"  # trùng tên thư mục vừa tạo
-)
 
 
 API_kor_to_vie = "https://tenacious-von-occludent.ngrok-free.dev/kor2vie"
@@ -386,19 +381,8 @@ else:
 # 8. LEFT PANEL
 # ==============================
 with col1:
-    st.markdown(
-        f"<div style='color: #000000;font-size:20px; font-weight:600;'>{left_label}</div>",
-        unsafe_allow_html=True
-    )
+    st.markdown(f"<div style='color: #000000;font-size:20px; font-weight:600;'>{left_label}</div>", unsafe_allow_html=True)
 
-    # 1) GỌI COMPONENT VOICE RECORDER
-    recorded_text = voice_recorder(key="voice_recorder")
-
-    # 2) NẾU CÓ KẾT QUẢ MỚI → CẬP NHẬT SESSION & INPUT BOX
-    if recorded_text is not None and recorded_text != "":
-        st.session_state.input_text = recorded_text
-
-    # 3) TEXTBOX BÊN TRÁI LUÔN ĐỌC TỪ session_state.input_text
     input_text = st.text_area(
         " ",
         st.session_state.input_text,
@@ -406,6 +390,32 @@ with col1:
         key="input_text",
         label_visibility="collapsed"
     )
+
+    st.components.v1.html(
+        f"""
+        <script>
+        window.addEventListener('message', (event) => {{
+            if (event.data.type === 'voice-text') {{
+                const text = event.data.text;
+                // gửi nội dung về python bằng Streamlit hack
+                window.parent.postMessage({{
+                    isStreamlitMessage: true,
+                    type: "streamlit:setQueryParams",
+                    queryParams: {{ recorded: [text] }}
+                }}, "*");
+            }}
+        }});
+        </script>
+        """,
+        height=0
+    )
+
+    # NHẬN TEXT
+    qp = st.experimental_get_query_params()
+    if "recorded" in qp:
+        st.session_state.input_text = qp["recorded"][0]
+        st.experimental_set_query_params()  # clear
+
 
     if st.button("🔊", key="speak_input"):
         if input_text.strip():
