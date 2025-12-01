@@ -490,7 +490,7 @@ async function stopRecording(e) {
         let raw = await r.text();
         let res = JSON.parse(raw);
 
-        statusBox.innerHTML = "✔";
+        statusBox.innerHTML = "✔"+ res.text;;
         statusBox.style.color = "#009f10";
 
         window.parent.postMessage(
