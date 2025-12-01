@@ -280,12 +280,7 @@ st.markdown("""
         font-size: 17px !important;
     }
 
-    /* THU NHỎ SWAP BUTTON */
-    .swap-container button {
-        width: 10px !important;
-        height: 10px !important;
-        font-size: 22px !important;
-    }
+
 
 }
 
