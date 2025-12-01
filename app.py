@@ -485,9 +485,9 @@ async function stopRecording(e) {
        #     "*"
        # );
         window.parent.postMessage(
-     { isStreamlitMessage: true, type: "streamlit:setComponentValue", value: res.text },
-       window.location.origin
-);
+             { isStreamlitMessage: true, type: "streamlit:setComponentValue", value: res.text },
+             "*"
+        );
         console.log("SELF frame:", window.location.href);
         console.log("PARENT frame:", window.parent.location.href);
         console.log("TOP frame:", window.top.location.href);
