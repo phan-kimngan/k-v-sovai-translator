@@ -395,11 +395,17 @@ with col1:
     #    st.session_state.input_text = st.session_state._component_value
     #    st.session_state._component_value = None
     #    #st.session_state.update_trigger += 1
-    val = components.declare_component("voice_text", path="") 
-    if val:
-        st.session_state.input_text = val    
+    # 🔥 NHẬN GIÁ TRỊ TEXT TỪ COMPONENT
+    voice_text = components.declare_component("voice_text", path="")
+    val = voice_text()
+
+    # 🔥 nếu nhận text từ voice
+    if isinstance(val, str) and val.strip():
+        st.session_state.input_text = val
+
     st.text_area(
         "Input",
+        value=st.session_state.input_text,
         height=200,
         key="input_text",
         label_visibility="collapsed",
