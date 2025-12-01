@@ -409,8 +409,7 @@ window.addEventListener("message", (event) => {
 """, height=0)
 
     if new_text:
-        st.session_state.input_text = new_text
-        st.session_state._component_value = None
+        st.session_state.update({"input_text": new_text})        
         st.rerun()        
         
         
