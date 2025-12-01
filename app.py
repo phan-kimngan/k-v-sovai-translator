@@ -279,7 +279,7 @@ st.markdown(
 st.markdown("""
 <style>
 
-@media (max-width: 600px) {
+@media (max-width: 400px) {
 
     /* TEXTBOX TRẮNG TO HƠN */
     textarea {
@@ -292,14 +292,6 @@ st.markdown("""
         width: 60px !important;
         height: 60px !important;
         font-size: 22px !important;
-    }
-
-    /* THU NHỎ KHOẢNG CÁCH GIỮA 2 TEXTBOX */
-    .swap-container {
-        height: 1px !important;
-        margin-top: -60px !important;
-        margin-bottom: -14px !important;
-        padding: -10 !important;
     }
 
 }
