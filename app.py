@@ -398,13 +398,19 @@ with col1:
     #    height=200,
     #    key="input_text"
     #)
+    input_text = st.text_area(
+        "",
+        st.session_state.input_text,
+        height=200,
+        key=f"input_widget_{st.session_state.update_trigger}"
+    )
+    st.session_state.input_text = input_text
+    
     voice = st.session_state.get("_component_value")
     if voice:
         st.session_state.input_text = voice
         st.session_state._component_value = None
-    #st.text_area("Input", key="input_text")    
-        
-    #st.session_state.input_text = input_text
+
 
     components.html(
 """
