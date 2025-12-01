@@ -469,21 +469,20 @@ async function stopRecording(e) {
 """,
 height=230
 )
-
     with open("voice.webm", "rb") as f:
-    files = {
-        "file": ("voice.webm", f, "audio/webm")
-    }
+        files = {
+            "file": ("voice.webm", f, "audio/webm")
+        }
 
-    with st.spinner("Đang nhận dạng giọng nói... ⏳"):
-        r = requests.post(
-            "https://tenacious-von-occludent.ngrok-free.dev/voice2text",
-            files=files
-        )
-        data = r.json()
-        text = data.get("text") or data.get("result") or ""
-        st.session_state.input_text = text
-        st.experimental_rerun()
+        with st.spinner("Đang nhận dạng giọng nói... ⏳"):
+            r = requests.post(
+                "https://tenacious-von-occludent.ngrok-free.dev/voice2text",
+                files=files
+            )
+            data = r.json()
+            text = data.get("text") or data.get("result") or ""
+            st.session_state.input_text = text
+            st.experimental_rerun()
     if st.button("🔊", key="speak_input"):
         if input_text.strip():
             tts = gTTS(input_text, lang=src_tts_lang)
