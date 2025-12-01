@@ -193,10 +193,7 @@ if "translation" not in st.session_state:
 if "history" not in st.session_state:
     st.session_state.history = []
 
-# ADD — Voice listener handler
-params = st.experimental_get_query_params()
-if "speech" in params:
-    st.session_state.input_text = params["speech"][0]
+
 # ==============================
 # 3. CSS
 # ==============================
@@ -393,7 +390,9 @@ with col1:
         height=200,
         value=default_text
     )
-
+    if "_component_value" in st.session_state:
+        st.session_state.input_text = st.session_state._component_value
+        st.session_state._component_value = None
     if st.button("🔊", key="speak_input"):
         if input_text.strip():
             tts = gTTS(input_text, lang=src_tts_lang)
@@ -438,23 +437,15 @@ with col1:
                     body: formData
                 });
 
-                let responseText = await r.text();  
-                console.log("SERVER RAW:", responseText);
+                let response = await r.json();
 
-                try {
-                    let data = JSON.parse(responseText);
+                // gửi TEXT vào Streamlit
+                window.parent.postMessage(
+                    { type: "speech", text: response.text },
+                    "*"
+                );
 
-                    // >>> PHẦN CHỈNH QUAN TRỌNG NHẤT <<<
-                    window.parent.postMessage(
-                        { type: "speech", speech: data.text },
-                        "*"
-                    );
-                    // >>> END FIX <<<
-
-                    document.getElementById("status").innerText = "✔ OK!";
-                } catch {
-                    document.getElementById("status").innerText = "❗ Lỗi server";
-                }
+                document.getElementById("status").innerText = "✔ OK!";
             };
 
             setTimeout(() => {
@@ -463,7 +454,10 @@ with col1:
         });
     }
     </script>
-    """, height=200)
+    """,
+    height=200
+)
+
 
 
 # ==============================
@@ -611,15 +605,20 @@ for item in reversed(st.session_state.history):
 components.html("""
 <script>
 window.addEventListener("message", (event) => {
-    if (event.data.type === "STT_RESULT") {
+    if (event.data.type === "speech") {
         const text = event.data.text;
-        const url = new URL(window.location.href);
-        url.searchParams.set("speech", text);
-        window.location.href = url.toString();
+
+        // truyền text cho Streamlit
+        window.parent.postMessage({
+            isStreamlitMessage: true,
+            type: "streamlit:setComponentValue",
+            value: text
+        }, "*");
     }
 });
 </script>
 """)
+
 # 11. FOOTER
 # ==============================
 st.markdown("<hr>", unsafe_allow_html=True)
