@@ -322,8 +322,7 @@ with col1:
     display:flex;
     flex-direction:row;
     gap:4px !important;
-    margin-top:-30px !important;
-    margin-bottom:-30px !important;
+
 }
 </style>
 """, unsafe_allow_html=True)
@@ -345,6 +344,8 @@ with col1:
     padding: 0 !important;
     margin: 0 !important;
     margin-left: -6px !important;
+    margin-top:-30px !important;
+    margin-bottom:-30px !important;
     box-shadow: 0 3px 6px rgba(0,0,0,0.15) !important;
 }
 #holdToTalk:hover {
