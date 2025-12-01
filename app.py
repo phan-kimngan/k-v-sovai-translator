@@ -325,39 +325,6 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-st.markdown("""
-<style>
-
-@media (max-width: 600px) {
-
-    /* TẠO KHOẢNG CÁCH GIỮA LABEL VÀ TEXTBOX */
-    .lang-label {
-        margin-bottom: 12px !important;
-    }
-
-    textarea {
-        margin-top: 6px !important;  
-    }
-
-    /* CĂN HÀNG NGANG CHO 🔊 + 🎤 */
-    .audio-row {
-        display: flex !important;
-        flex-direction: row !important;
-        gap: 14px !important;
-        align-items: center !important;
-        margin-top: 6px !important;
-    }
-
-    .audio-row > div {
-        display: flex !important;
-        align-items: center !important;
-    }
-
-}
-
-</style>
-""", unsafe_allow_html=True)
-
 # 4. HEADER
 # ==============================
 st.markdown(
