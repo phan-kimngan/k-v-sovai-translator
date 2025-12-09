@@ -264,7 +264,7 @@ col1, col_center, col2 = st.columns([1, 0.25, 1])
 # ==============================
 with col_center:
     #st.markdown("<div class='swap-container'>", unsafe_allow_html=True)
-    st.markdown(f"<div style='align-items: center !important; '>", unsafe_allow_html=True)
+    st.markdown(f"<div style='align-items: center !important; margin-top: -30px !important; margin-bottom: -30px !important;'>", unsafe_allow_html=True)
     swap_clicked = st.button("⬆️⬇️", key="swap_button")
     st.markdown("</div>", unsafe_allow_html=True)
 
@@ -307,8 +307,17 @@ with col1:
         key="input_text",
         label_visibility="collapsed"
     )
-
-    voice_html = """
+    colA, colB = st.columns([1, 1])
+    with colA:
+        if st.button("🔊", key="speak_input"):
+            if input_text.strip():
+                tts = gTTS(input_text, lang=src_tts_lang)
+                tts.save("input_tts.mp3")
+                with open("input_tts.mp3", "rb") as f:
+                    st.audio(f.read(), format="audio/mp3")  
+    
+    with colB:
+        voice_html = """
 <style>
 
 #holdToTalk {
@@ -454,20 +463,11 @@ async function stopRecording(e) {
 }
 </script>
 """
+        components.html(
+            voice_html.replace("###LANG###", src_tts_lang),
+            height=60
+        )
 
-    components.html(
-    voice_html.replace("###LANG###", src_tts_lang),
-    height=60
-)
-
-
-
-    if st.button("🔊", key="speak_input"):
-        if input_text.strip():
-            tts = gTTS(input_text, lang=src_tts_lang)
-            tts.save("input_tts.mp3")
-            with open("input_tts.mp3", "rb") as f:
-                st.audio(f.read(), format="audio/mp3")  
 
 
 # ==============================
