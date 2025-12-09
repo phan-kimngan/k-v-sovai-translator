@@ -416,9 +416,6 @@ function startRecording(e) {
         mediaRecorder.start();
     });
 }
-<script>
-    const lang = "{src_tts_lang}";
-</script>
 async function stopRecording(e) {
     if (!recording) return;
     recording = false;
@@ -432,7 +429,7 @@ async function stopRecording(e) {
         const blob = new Blob(chunks, { type: 'audio/webm' });
         let formData = new FormData();
         formData.append("file", blob, "voice.webm");
-        formData.append("src_tts_lang", lang);
+        formData.append("src_tts_lang", "{src_tts_lang}");
         let r = await fetch("https://tenacious-von-occludent.ngrok-free.dev/voice2text", {
             method: "POST",
             body: formData,
