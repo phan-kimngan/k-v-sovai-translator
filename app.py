@@ -314,7 +314,6 @@ f"""
 <script>
     const lang = "{src_tts_lang}";
 </script>
-"""
 <style>
 
 #holdToTalk {
