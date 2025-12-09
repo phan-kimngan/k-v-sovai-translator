@@ -307,7 +307,14 @@ with col1:
         key="input_text",
         label_visibility="collapsed"
     )
-
+    components.html(
+    f"""
+    <script>
+        window.src_tts_lang = "{src_tts_lang}";
+    </script>
+    """,
+    height=0
+)
     components.html(
 """
 <style>
@@ -429,7 +436,7 @@ async function stopRecording(e) {
         const blob = new Blob(chunks, { type: 'audio/webm' });
         let formData = new FormData();
         formData.append("file", blob, "voice.webm");
-        formData.append("src_tts_lang", "{src_tts_lang}");
+        formData.append("src_tts_lang", window.src_tts_lang);
         let r = await fetch("https://tenacious-von-occludent.ngrok-free.dev/voice2text", {
             method: "POST",
             body: formData,
