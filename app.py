@@ -308,12 +308,13 @@ with col1:
         label_visibility="collapsed"
     )
         
-
-    components.html(
-f"""
+    components.html(f"""
 <script>
     const lang = "{src_tts_lang}";
 </script>
+""")
+    components.html(
+"""
 <style>
 
 #holdToTalk {
