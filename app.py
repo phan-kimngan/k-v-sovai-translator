@@ -310,7 +310,7 @@ with col1:
         
 
     components.html(
-f"""
+"""
 <script>
     const lang = "{src_tts_lang}";
 </script>
