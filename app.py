@@ -417,7 +417,9 @@ function startRecording(e) {
         mediaRecorder.start();
     });
 }
-const lang = "{src_tts_lang}";
+<script>
+        const lang = "{src_tts_lang}";
+</script>
 async function stopRecording(e) {
     if (!recording) return;
     recording = false;
