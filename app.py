@@ -307,16 +307,8 @@ with col1:
         key="input_text",
         label_visibility="collapsed"
     )
-    components.html(
-    f"""
-    <script>
-        window.src_tts_lang = "{src_tts_lang}";
-    </script>
-    """,
-    height=0
-)
-    components.html(
-"""
+
+    voice_html = """
 <style>
 
 #holdToTalk {
@@ -423,6 +415,7 @@ function startRecording(e) {
         mediaRecorder.start();
     });
 }
+
 async function stopRecording(e) {
     if (!recording) return;
     recording = false;
@@ -434,9 +427,11 @@ async function stopRecording(e) {
 
     mediaRecorder.onstop = async () => {
         const blob = new Blob(chunks, { type: 'audio/webm' });
+
         let formData = new FormData();
         formData.append("file", blob, "voice.webm");
-        formData.append("src_tts_lang", window.src_tts_lang);
+        formData.append("src_tts_lang", "###LANG###");   // <--- CHỖ NÀY
+
         let r = await fetch("https://tenacious-von-occludent.ngrok-free.dev/voice2text", {
             method: "POST",
             body: formData,
@@ -458,9 +453,13 @@ async function stopRecording(e) {
     }
 }
 </script>
-""",
-height=60
+"""
+
+    components.html(
+    voice_html.replace("###LANG###", src_tts_lang),
+    height=60
 )
+
 
 
     if st.button("🔊", key="speak_input"):
