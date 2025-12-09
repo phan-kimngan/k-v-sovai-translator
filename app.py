@@ -310,6 +310,10 @@ with col1:
         
 
     components.html(
+f"""
+<script>
+    const lang = "{src_tts_lang}";
+</script>
 """
 <style>
 
@@ -417,9 +421,7 @@ function startRecording(e) {
         mediaRecorder.start();
     });
 }
-<script>
-        const lang = "{src_tts_lang}";
-</script>
+
 async function stopRecording(e) {
     if (!recording) return;
     recording = false;
