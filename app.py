@@ -307,12 +307,7 @@ with col1:
         key="input_text",
         label_visibility="collapsed"
     )
-        
-    components.html(f"""
-<script>
-    const lang = "{src_tts_lang}";
-</script>
-""")
+
     components.html(
 """
 <style>
@@ -421,7 +416,9 @@ function startRecording(e) {
         mediaRecorder.start();
     });
 }
-
+<script>
+    const lang = "{src_tts_lang}";
+</script>
 async function stopRecording(e) {
     if (!recording) return;
     recording = false;
