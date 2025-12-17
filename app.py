@@ -8,8 +8,8 @@ from streamlit_webrtc import webrtc_streamer, AudioProcessorBase
 
 
 
-API_kor_to_vie = "https://tenacious-von-occludent.ngrok-free.dev/kor2vie"
-API_vie_to_kor = "https://tenacious-von-occludent.ngrok-free.dev/vie2kor"      
+API_kor_to_vie = ".ngrok-free.dev link + kor2vie"
+API_vie_to_kor = ".ngrok-free.dev link + vie2kor"      
 # ==============================
 # 1. PAGE CONFIG
 # ==============================
