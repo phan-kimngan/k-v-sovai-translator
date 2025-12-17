@@ -432,7 +432,7 @@ async function stopRecording(e) {
         formData.append("file", blob, "voice.webm");
         formData.append("src_tts_lang", "###LANG###");   // <--- CHỖ NÀY
 
-        let r = await fetch("https://tenacious-von-occludent.ngrok-free.dev/voice2text", {
+        let r = await fetch("ngrok-free.dev + voice2text", {
             method: "POST",
             body: formData,
             mode: "cors",
